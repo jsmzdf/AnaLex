@@ -1,0 +1,179 @@
+package anaa;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+terminal   Comillas, Tipo_dato, Cadena ,If , Else, Do, While, For,
+    Break, Switch, Case,  Return,  Modulo,   Igual, Suma,    Resta,
+    Multiplicacion,   Division,    Operador_logico,    Operador_incremento,
+    Operador_relacional,    Dato_booleano,    Parentesis_apertura,    Parentesis_cierre,
+    Llave_apertura,    Llave_cierre,    Corchete_apertura,    Corchete_cierre,
+    Default,    Operador_unario,    Operador_asignacion,     Main,     Import,
+    Interface,    Abstract,    Package,    Static,    Assert,    Catch,
+    Const,    Continue,    Enum,    Extends,    Final,    Finally,
+    Implements,    Instanceof,    Native,    New,    Strictfp, Comilla,   Super,
+    Synchronized,    Throw,    Throws,    Transient,    Try,    Class,
+    Volatile,    This,    Coma,    Public,    Void,    Protected,
+    Private,    PuntoyComa,Punto,Dospuntos,    Identificador,    Numero,    ERROR;
+
+non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,
+    WHILE,SWITCH, DO_WHILE, FOR, SENTENCIA_BOOLEANA,CASE, SENTENCIA_FOR,INICIO_CLASS, METODO,STRING, CHAR ;
+
+start with INICIO_CLASS;
+INICIO_CLASS ::= Class Identificador Llave_apertura SENTENCIA Llave_cierre|
+Public Class Identificador Llave_apertura SENTENCIA Llave_cierre|
+Public Abstract Class Identificador Llave_apertura SENTENCIA Llave_cierre|
+Abstract Class Identificador Llave_apertura SENTENCIA Llave_cierre|
+Interface Identificador Llave_apertura SENTENCIA Llave_cierre|
+Public Interface Identificador Llave_apertura SENTENCIA Llave_cierre|
+Public Enum Identificador Llave_apertura SENTENCIA Llave_cierre|
+Enum Identificador Llave_apertura SENTENCIA Llave_cierre
+;
+INICIO ::=  
+    Public Static Void Main Parentesis_apertura SENTENCIA  Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre ;
+
+SENTENCIA ::= 
+    SENTENCIA DECLARACION |
+    DECLARACION |
+    SENTENCIA IF | 
+    IF |
+    SENTENCIA IF_ELSE |
+    IF_ELSE |
+    SENTENCIA WHILE |
+    WHILE |
+    SENTENCIA DO_WHILE
+    DO_WHILE |
+    SENTENCIA FOR |
+    FOR|
+    SENTENCIA SWITCH|
+    SWITCH SENTENCIA|
+    SWITCH| METODO
+;
+
+
+DECLARACION ::= 
+
+    Tipo_dato Identificador PuntoyComa | 
+    Tipo_dato Identificador Igual Numero PuntoyComa |
+    Tipo_dato Identificador Operador_asignacion Numero PuntoyComa |
+    Cadena Identificador Operador_asignacion STRING PuntoyComa |
+    Tipo_dato Identificador Operador_incremento PuntoyComa | 
+    Tipo_dato Operador_incremento Identificador PuntoyComa | 
+    Cadena Identificador Igual STRING PuntoyComa |
+    Identificador Identificador PuntoyComa|
+    Identificador Identificador = new Identificador  Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    Identificador Identificador = new Identificador  Parentesis_apertura  Parentesis_cierre PuntoyComa|
+    
+
+    SEGURIDAD Tipo_dato Identificador PuntoyComa | 
+    SEGURIDAD Tipo_dato Identificador Igual Numero PuntoyComa |
+    SEGURIDAD Tipo_dato Identificador Operador_asignacion Numero PuntoyComa |
+    SEGURIDAD Cadena Identificador Operador_asignacion STRING PuntoyComa |
+    SEGURIDAD Tipo_dato Identificador Operador_incremento PuntoyComa | 
+    SEGURIDAD Tipo_dato Operador_incremento Identificador PuntoyComa | 
+    SEGURIDAD Cadena Identificador Igual STRING PuntoyComa |
+    SEGURIDAD Identificador Identificador PuntoyComa|
+    SEGURIDAD Identificador Identificador = new Identificador  Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    SEGURIDAD Identificador Identificador = new Identificador  Parentesis_apertura  Parentesis_cierre PuntoyComa;
+    
+;
+
+
+METODO ::=
+    /* al decalrar metodos sin proteccion */
+    Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    Tipo_dato Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    Void Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    
+    /* al declarar metodos en una interfaz*/
+    Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    Tipo_dato Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
+    Void Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
+
+    /* al llamar al metodo */
+    Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    Identificador Parentesis_apertura  Parentesis_cierre PuntoyComa|
+    
+    /* declarar metodos con seguridad */
+    SEGURIDAD Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    SEGURIDAD Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    SEGURIDAD Tipo_dato Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    SEGURIDAD Void Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
+    
+    /* declarar metodos con seguridad en interfaz*/
+    SEGURIDAD Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    SEGURIDAD Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
+    SEGURIDAD Tipo_dato Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
+    SEGURIDAD Void Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|   
+;
+
+SEGURIDAD ::=
+    Public | Protected | Private 
+;
+
+PARAMETRO ::=  
+    Tipo_dato Identificador|
+    Identificador|
+    Identificador Coma PARAMETRO|
+    Tipo_dato Identificador Coma PARAMETRO
+;
+
+IF ::= If Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
+;
+SWITCH ::= Switch Parentesis_apertura Identificado Parentesis_cierre Llave_apertura 
+            CASE           
+            Default Dospuntos SENTENCIA 
+;
+
+CASE ::=
+Case Comillas  Comillas Dospuntos SENTENCIA
+|Case STRING Dospuntos SENTENCIA CASE
+|Case STRING Dospuntos SENTENCIA Break PuntoyComa
+|Case STRING Dospuntos SENTENCIA Break PuntoyComa CASE;
+|Case Numero Dospuntos SENTENCIA
+|Case Numero Dospuntos SENTENCIA CASE
+|Case Numero Dospuntos SENTENCIA Break PuntoyComa
+|Case Numero Dospuntos SENTENCIA Break PuntoyComa CASE;
+
+STRING ::=  Comillas Identificador  Comillas | Comillas  Comillas
+;
+CHAR ::= Comilla Identificador Comilla | Comilla Comilla 
+;
+SENTENCIA_BOOLEANA ::=
+    Op_booleano | 
+    Identificador Operador_relacional Op_booleano |
+    Identificador Operador_relacional Numero |
+    Identificador Operador_relacional Identificador |
+    Identificador Operador_relacional Comillas Comillas |
+    Identificador Operador_relacional Comillas Identificador Comillas
+;
+IF_ELSE ::= If Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre Else Llave_apertura SENTENCIA Llave_cierre
+;
+WHILE ::= While Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
+;
+DO_WHILE ::= Do Llave_apertura SENTENCIA Llave_cierre While Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre PuntoyComa
+;
+FOR ::= For Parentesis_apertura SENTENCIA_FOR Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
+;
+SENTENCIA_FOR ::=
+    Tipo_dato Identificador Igual Numero PuntoyComa SENTENCIA_BOOLEANA PuntoyComa DECLARACION_FOR |
+    Identificador Igual Numero PuntoyComa SENTENCIA_BOOLEANA PuntoyComa DECLARACION_FOR
+;
+DECLARACION_FOR ::= 
+    Identificador Operador_asignacion Numero |
+    Identificador Operador_incremento | 
+    Operador_incremento Identificador
+;
