@@ -14,43 +14,21 @@ parser code
         return this.s;
 }
 :};
-/*  Super,Import,Const,  Assert,   Package,   Catch,  Continue,     
- Extends,    Final,    Finally,Implements, Instanceof,  
- This, Volatile, Native,     Corchete_apertura,    Corchete_cierre,
-    Synchronized,    Throw,   Suma,    Resta, Throws,    Transient,  Multiplicacion,  
- Division,   Try,Punto,Return,Strictfp,  Main,   Modulo,Operador_logico, Comilla,  Static,
- 
- */
-/*
-CHAR,INICIO,ERROR
-*/
-terminal   Comillas, Tipo_dato, Cadena ,If , Else, Do, While, For,
-    Break, Switch, Case,      Igual, 
-           Operador_incremento,Operador_unario,
-    Operador_relacional,    Dato_booleano,    Parentesis_apertura,    Parentesis_cierre,
-    Llave_apertura,    Llave_cierre,     Default,       Enum,   Operador_asignacion,        
-    Interface,    Abstract,            
-         New,        Class,
-         Coma,    Public,    Void,    Protected,
-    Private,    PuntoyComa,Dospuntos,    Identificador,    Numero  ;
 
-non terminal  SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,PARAMETRO,SEGURIDAD,
-    WHILE,SWITCH, DO_WHILE, FOR, SENTENCIA_BOOLEANA,CASE, SENTENCIA_FOR,INICIO_CLASS, METODO,STRING ;
+terminal Linea, Comillas, T_dato, Int, Cadena, If, Else, Do, While, For,
+    Igual, Suma, Resta, Multiplicacion, Division, Op_logico, Op_relacional,
+    Op_atribucion, Op_incremento, Op_booleano, Parentesis_a, Parentesis_c,
+    Llave_a, Llave_c, Corchete_a, Corchete_c, Main, P_coma, Identificador,
+    Numero,Cin, ERROR;
+non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,
+    WHILE, DO_WHILE, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR;
 
-start with INICIO_CLASS;
-INICIO_CLASS ::= Class Identificador Llave_apertura SENTENCIA Llave_cierre|
-Public Class Identificador Llave_apertura SENTENCIA Llave_cierre|
-Public Abstract Class Identificador Llave_apertura SENTENCIA Llave_cierre|
-Abstract Class Identificador Llave_apertura SENTENCIA Llave_cierre|
-Interface Identificador Llave_apertura SENTENCIA Llave_cierre|
-Public Interface Identificador Llave_apertura SENTENCIA Llave_cierre|
-Public Enum Identificador Llave_apertura SENTENCIA Llave_cierre|
-Enum Identificador Llave_apertura SENTENCIA Llave_cierre
+start with INICIO;
+
+INICIO ::= 
+    Int Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c |
+    Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c
 ;
-/*INICIO ::=  
-    Public Static Void Main Parentesis_apertura SENTENCIA  Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre 
-;*/
-
 SENTENCIA ::= 
     SENTENCIA DECLARACION |
     DECLARACION |
@@ -63,122 +41,49 @@ SENTENCIA ::=
     SENTENCIA DO_WHILE
     DO_WHILE |
     SENTENCIA FOR |
-    FOR|
-    SENTENCIA SWITCH|
-    //SWITCH SENTENCIA|
-    SWITCH| METODO
+    FOR
 ;
-
 DECLARACION ::= 
-
-    /*Tipo_dato Identificador PuntoyComa | */
-   /* Tipo_dato Identificador Igual Numero PuntoyComa |*/
-    /*Tipo_dato Identificador Operador_asignacion Numero PuntoyComa |*/
-   // Cadena Identificador Operador_asignacion STRING PuntoyComa |
-   /* Tipo_dato Identificador Operador_unario PuntoyComa | */
-    /*Tipo_dato Operador_unario Identificador PuntoyComa | */
-   // Cadena Identificador Igual STRING PuntoyComa |
-    Identificador Identificador PuntoyComa|
-    Identificador Identificador Igual New Identificador  Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    Identificador Identificador Igual New Identificador  Parentesis_apertura  Parentesis_cierre PuntoyComa|
-    SEGURIDAD Tipo_dato Identificador PuntoyComa | 
-    SEGURIDAD Tipo_dato Identificador Igual Numero PuntoyComa |
-    SEGURIDAD Tipo_dato Identificador Operador_asignacion Numero PuntoyComa |
-    SEGURIDAD Cadena Identificador Operador_asignacion STRING PuntoyComa |
-    SEGURIDAD Tipo_dato Identificador Operador_unario PuntoyComa | 
-    SEGURIDAD Tipo_dato Operador_unario Identificador PuntoyComa | 
-    SEGURIDAD Cadena Identificador Igual STRING PuntoyComa |
-    SEGURIDAD Identificador Identificador PuntoyComa|
-    SEGURIDAD Identificador Identificador Igual New Identificador  Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    SEGURIDAD Identificador Identificador Igual New Identificador  Parentesis_apertura  Parentesis_cierre PuntoyComa
+    Int Identificador P_coma | 
+    Int Identificador Op_atribucion Numero P_coma |
+    Int Identificador Igual Numero P_coma |
+    Int Identificador Op_incremento P_coma | 
+    Int Op_incremento Identificador P_coma | 
+    T_dato Identificador P_coma | 
+    T_dato Identificador Op_atribucion Numero P_coma |
+    T_dato Identificador Igual Numero P_coma |
+    T_dato Identificador Op_incremento P_coma | 
+    T_dato Op_incremento Identificador P_coma | 
+    Cadena Identificador Op_atribucion Comillas Comillas P_coma |
+    Cadena Identificador Igual Comillas Comillas P_coma |
+    Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma |
+    Cadena Identificador Igual Comillas Identificador Comillas P_coma|
+    Cin Op_relacional Identificador P_coma 
 ;
-
-METODO ::=
-   
-    //Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-   // Tipo_dato Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    Void Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    
-  
-    //Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-   // Tipo_dato Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
-    Void Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
-
-   
-    Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    Identificador Parentesis_apertura  Parentesis_cierre PuntoyComa|
-    
-    
-    SEGURIDAD Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    SEGURIDAD Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    SEGURIDAD Tipo_dato Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    SEGURIDAD Void Identificador Parentesis_apertura Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre|
-    
-   
-    SEGURIDAD Tipo_dato Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    SEGURIDAD Void Identificador Parentesis_apertura PARAMETRO Parentesis_cierre PuntoyComa|
-    SEGURIDAD Tipo_dato Identificador Parentesis_apertura Parentesis_cierre PuntoyComa|
-    SEGURIDAD Void Identificador Parentesis_apertura Parentesis_cierre PuntoyComa   
+IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
 ;
-SEGURIDAD ::=
-    Public | Protected | Private 
+SENTENCIA_BOOLEANA ::= 
+    Op_booleano | 
+    Identificador Op_relacional Op_booleano |
+    Identificador Op_relacional Numero |
+    Identificador Op_relacional Identificador |
+    Identificador Op_relacional Comillas Comillas |
+    Identificador Op_relacional Comillas Identificador Comillas
 ;
-
-PARAMETRO ::=  
-    Tipo_dato Identificador|
-    Identificador|
-    Identificador Coma PARAMETRO|
-    Tipo_dato Identificador Coma PARAMETRO
+IF_ELSE ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Else Llave_a SENTENCIA Llave_c
 ;
-
-IF ::= If Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
+WHILE ::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
 ;
- SWITCH ::= Switch Parentesis_apertura Identificador Parentesis_cierre Llave_apertura 
-            CASE           
-            Default Dospuntos   
-;   
-CASE ::=
-Case STRING Dospuntos SENTENCIA
-|Case STRING Dospuntos SENTENCIA CASE
-|Case STRING Dospuntos SENTENCIA Break PuntoyComa
-|Case STRING Dospuntos SENTENCIA Break PuntoyComa CASE
-|Case Numero Dospuntos SENTENCIA
-|Case Numero Dospuntos SENTENCIA CASE
-|Case Numero Dospuntos SENTENCIA Break PuntoyComa
-|Case Numero Dospuntos SENTENCIA Break PuntoyComa CASE
+DO_WHILE ::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c P_coma
 ;
-STRING ::=  Comillas Identificador  Comillas | Comillas  Comillas
-;
-
-/*CHAR ::= Comilla Identificador Comilla | Comilla Comilla 
-;*/
-
-SENTENCIA_BOOLEANA ::=
-    Dato_booleano | 
-    Identificador Operador_relacional Dato_booleano |
-    Identificador Operador_relacional Numero |
-    Identificador Operador_relacional Identificador |
-    Identificador Operador_relacional Comillas Comillas |
-    Identificador Operador_relacional Comillas Identificador Comillas
-;
-
-IF_ELSE ::= If Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre Else Llave_apertura SENTENCIA Llave_cierre
-;
-WHILE ::= While Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
-;
-DO_WHILE ::= Do Llave_apertura SENTENCIA Llave_cierre While Parentesis_apertura SENTENCIA_BOOLEANA Parentesis_cierre PuntoyComa
-;
-FOR ::= For Parentesis_apertura SENTENCIA_FOR Parentesis_cierre Llave_apertura SENTENCIA Llave_cierre
+FOR ::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c
 ;
 SENTENCIA_FOR ::=
-    Tipo_dato Identificador Igual Numero PuntoyComa SENTENCIA_BOOLEANA PuntoyComa DECLARACION_FOR |
-    Identificador Igual Numero PuntoyComa SENTENCIA_BOOLEANA PuntoyComa DECLARACION_FOR
+    T_dato Identificador Igual Numero P_coma SENTENCIA_BOOLEANA P_coma DECLARACION_FOR |
+    Identificador Igual Numero P_coma SENTENCIA_BOOLEANA P_coma DECLARACION_FOR
 ;
 DECLARACION_FOR ::= 
-    Identificador Operador_asignacion Numero |
-    Identificador Operador_incremento | 
-    Operador_incremento Identificador
+    Identificador Op_atribucion Numero |
+    Identificador Op_incremento | 
+    Op_incremento Identificador
 ;
-

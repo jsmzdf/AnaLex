@@ -5,174 +5,107 @@ import static anaa.Tokens.*;
 %type Tokens
 L=[a-zA-Z_]+
 D=[0-9]+
-G=[_]+
-espacio=[ \t\r]+
+espacio=[ ,\t,\r]+
 %{
     public String lexeme;
 %}
 %%
+
+/* Espacios en blanco */
 {espacio} {/*Ignore*/}
 
+/* Comentarios */
 ( "//"(.)* ) {/*Ignore*/}
 
-
+/* Salto de linea */
 ( "\n" ) {return Linea;}
 
-
+/* Comillas */
 ( "\"" ) {lexeme=yytext(); return Comillas;}
 
-( byte | int | char | long | float | double  | boolean | short) {lexeme=yytext(); return Tipo_dato;}
+/* Tipos de datos */
+( byte | int | char | long | float | double ) {lexeme=yytext(); return T_dato;}
 
-
+/* Tipo de dato String */
 ( String ) {lexeme=yytext(); return Cadena;}
 
-
+/* Palabra reservada If */
 ( if ) {lexeme=yytext(); return If;}
 
-
+/* Palabra reservada Else */
 ( else ) {lexeme=yytext(); return Else;}
 
-
+/* Palabra reservada Do */
 ( do ) {lexeme=yytext(); return Do;}
 
-
+/* Palabra reservada While */
 ( while ) {lexeme=yytext(); return While;}
 
-
+/* Palabra reservada For */
 ( for ) {lexeme=yytext(); return For;}
 
-
-( switch ) {lexeme=yytext(); return Switch;}
-
-
-( case ) {lexeme=yytext(); return Case;}
-
-
-( default ) {lexeme=yytext(); return Default;}
-
-( break ) {lexeme=yytext(); return Break;}
-
-
-( return ) {lexeme=yytext(); return Return;}
-
-
+/* Operador Igual */
 ( "=" ) {lexeme=yytext(); return Igual;}
 
-
+/* Operador Suma */
 ( "+" ) {lexeme=yytext(); return Suma;}
 
-
+/* Operador Resta */
 ( "-" ) {lexeme=yytext(); return Resta;}
 
-
+/* Operador Multiplicacion */
 ( "*" ) {lexeme=yytext(); return Multiplicacion;}
 
-
+/* Operador Division */
 ( "/" ) {lexeme=yytext(); return Division;}
 
+/* Operadores logicos */
+( "&&" | "||" | "!" | "&" | "|" ) {lexeme=yytext(); return Op_logico;}
 
-( "%" ) {lexeme=yytext(); return Modulo;}
+/*Operadores Relacionales */
+( ">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>" ) {lexeme = yytext(); return Op_relacional;}
 
+/* Operadores Atribucion */
+( "+=" | "-="  | "*=" | "/=" | "%=" ) {lexeme = yytext(); return Op_atribucion;}
 
-( "&&" | "||" | "!" | "&" | "|" ) {lexeme=yytext(); return Operador_logico;}
+/* Operadores Incremento y decremento */
+( "++" | "--" ) {lexeme = yytext(); return Op_incremento;}
 
+/*Operadores Booleanos*/
+(true | false)      {lexeme = yytext(); return Op_booleano;}
 
-( ">" | "<" | "==" | "!=" | ">=" | "<="  ) {lexeme = yytext(); return Operador_relacional;}
+/* Parentesis de apertura */
+( "(" ) {lexeme=yytext(); return Parentesis_a;}
 
+/* Parentesis de cierre */
+( ")" ) {lexeme=yytext(); return Parentesis_c;}
 
-( "+=" | "-="  | "*=" | "/=" | "%=" ) {lexeme = yytext(); return Operador_asignacion;}
+/* Llave de apertura */
+( "{" ) {lexeme=yytext(); return Llave_a;}
 
+/* Llave de cierre */
+( "}" ) {lexeme=yytext(); return Llave_c;}
 
-( "++" | "--" ) {lexeme = yytext(); return Operador_unario;}
+/* Corchete de apertura */
+( "[" ) {lexeme = yytext(); return Corchete_a;}
 
+/* Corchete de cierre */
+( "]" ) {lexeme = yytext(); return Corchete_c;}
 
-(true | false)      {lexeme = yytext(); return Dato_booleano;}
-
-
-( "(" ) {lexeme=yytext(); return Parentesis_apertura;}
-
-
-( ")" ) {lexeme=yytext(); return Parentesis_cierre;}
-
-
-( "{" ) {lexeme=yytext(); return Llave_apertura;}
-
-
-( "}" ) {lexeme=yytext(); return Llave_cierre;}
-
-( "[" ) {lexeme = yytext(); return Corchete_apertura;}
-
-( "]" ) {lexeme = yytext(); return Corchete_cierre;}
-
-( "import" ) {lexeme=yytext(); return Import;}
-
+/* Marcador de inicio de algoritmo */
 ( "main" ) {lexeme=yytext(); return Main;}
- 
-( "interface" ) {lexeme=yytext(); return Interface;}
-( "abstract" ) {lexeme=yytext(); return Abstract;}
-( "package" ) {lexeme=yytext(); return Package;}
-( "static" ) {lexeme=yytext(); return Static;}
-( "assert" ) {lexeme=yytext(); return Assert;}
-( "catch" ) {lexeme=yytext(); return Catch;}
-( "const" ) {lexeme=yytext(); return Const;}
-( "continue" ) {lexeme=yytext(); return Continue;}
-( "enum" ) {lexeme=yytext(); return Enum;}
-( "extends" ) {lexeme=yytext(); return Extends;}
 
-( "final" ) {lexeme=yytext(); return Final;}
+/* Punto y coma */
+( ";" ) {lexeme=yytext(); return P_coma;}
 
-( "finally" ) {lexeme=yytext(); return Finally;}
+("cin" ) {lexeme=yytext(); return Cin;}
 
-( "implements" ) {lexeme=yytext(); return Implements;}
+/* Identificador */
+{L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 
-( "instanceof" ) {lexeme=yytext(); return Instanceof;}
-
-( "native" ) {lexeme=yytext(); return Native;}
-
-( "new" ) {lexeme=yytext(); return New;}
-
-( "strictfp" ) {lexeme=yytext(); return Strictfp;}
-
-( "super" ) {lexeme=yytext(); return Super;}
-
-( "synchronized" ) {lexeme=yytext(); return Synchronized;}
-
-( "throw" ) {lexeme=yytext(); return Throw;}
-
-( "throws" ) {lexeme=yytext(); return Throws;}
-
-( "transient" ) {lexeme=yytext(); return Transient;}
-
-( "try" ) {lexeme=yytext(); return Try;}
-
-( "volatile" ) {lexeme=yytext(); return Volatile;}
-
-( "class" ) {lexeme=yytext(); return Class;}
-( "public" ) {lexeme=yytext(); return Public;}
-
-( "void" ) {lexeme=yytext(); return Void;}
-
-( "private" ) {lexeme=yytext(); return Private;}
-
-( "this" ) {lexeme=yytext(); return This;}
-
-
-( "protected" ) {lexeme=yytext(); return Protected;}
-
-
-( "," ) {lexeme=yytext(); return Coma;}
-
-
-
-( ";" |"." |":") {lexeme=yytext(); return signo_puntuacion;}
-
-
-{L}({G}|{L}|{D})* {lexeme=yytext(); return Identificador;}
-
-("'") {lexeme=yytext(); return Comilla;}
-
-
+/* Numero */
 ("(-"{D}+")")|{D}+ {lexeme=yytext(); return Numero;}
 
 
+/* Error de analisis */
  . {return ERROR;}

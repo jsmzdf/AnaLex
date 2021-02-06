@@ -5,9 +5,12 @@
  */
 package anaa;
 
+import java.awt.Color;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
 
 /**
  *
@@ -32,19 +35,33 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TexA_IN = new java.awt.TextArea();
-        textAreaOut = new java.awt.TextArea();
-        jButton1 = new javax.swing.JButton();
+        txtCodigo = new java.awt.TextArea();
+        txtLexico = new java.awt.TextArea();
+        btnAnalizar = new javax.swing.JButton();
         btnIF = new javax.swing.JButton();
         btnWhile = new javax.swing.JButton();
         btnFor = new javax.swing.JButton();
+        txtSintactico = new java.awt.TextArea();
+        btnSwitch = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnDoWhile = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(450, 350));
+        setName("Analizador"); // NOI18N
+        setResizable(false);
 
-        jButton1.setText("Analizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        txtLexico.setEditable(false);
+
+        btnAnalizar.setText("Analizar");
+        btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAnalizarActionPerformed(evt);
             }
         });
 
@@ -62,10 +79,41 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnFor.setText("For");
+        btnFor.setText("FOR");
         btnFor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnForActionPerformed(evt);
+            }
+        });
+
+        txtSintactico.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtSintactico.setEditable(false);
+        txtSintactico.setFont(new java.awt.Font("Noto Sans CJK TC Light", 0, 14)); // NOI18N
+
+        btnSwitch.setText("SWITCH");
+        btnSwitch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSwitchActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Analizador Léxico");
+
+        jLabel2.setText("Analizador Sintáctico");
+
+        jLabel3.setText("Código");
+
+        btnDoWhile.setText("DO WHILE");
+        btnDoWhile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoWhileActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -74,66 +122,128 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(TexA_IN, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textAreaOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnFor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnWhile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnIF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(197, 197, 197))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnWhile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSwitch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDoWhile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnalizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtLexico, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSintactico, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(312, 312, 312)
+                        .addComponent(jLabel2)
+                        .addGap(147, 147, 147))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textAreaOut, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                    .addComponent(TexA_IN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jButton1))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                    .addComponent(txtSintactico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtLexico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnIF)
+                                .addGap(22, 22, 22)
+                                .addComponent(btnWhile)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDoWhile)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSwitch)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFor)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIF)
-                        .addGap(16, 16, 16)
-                        .addComponent(btnWhile)))
-                .addGap(18, 18, 18)
-                .addComponent(btnFor)
-                .addContainerGap(8, Short.MAX_VALUE))
+                        .addGap(84, 84, 84)
+                        .addComponent(btnAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIFActionPerformed
-        TexA_IN.append("if() { \n }\n");
+        txtCodigo.append("if() { \n }\n");
     }//GEN-LAST:event_btnIFActionPerformed
 
     private void btnWhileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWhileActionPerformed
-        TexA_IN.append("while() { \n }\n");
+        txtCodigo.append("while() { \n }\n");
     }//GEN-LAST:event_btnWhileActionPerformed
 
     private void btnForActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForActionPerformed
-        TexA_IN.append("for (int i = 0; i<10;i++) { \n }\n");
+        txtCodigo.append("for (int i = 0; i<10;i++) { \n }\n");
         
     }//GEN-LAST:event_btnForActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         String ana = "{;";
         try {
-            anita.analizarLexico(TexA_IN.getText());
-            textAreaOut.setText(anita.getResulta());
+            anita.analizarLexico(txtCodigo.getText());
+            txtLexico.setText(anita.getResulta());
             
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        String ST = txtCodigo.getText();
+        Sintax s = new Sintax(new anaa.LexerCup(new StringReader(ST)));
+        
+        try {
+            s.parse();
+            txtSintactico.setText("Todo bien perrito, ¡sabe programar!");
+            txtSintactico.setForeground(new Color(25,111,61));      
+        } catch (Exception ex) {
+            Symbol sym = s.getS();
+            txtSintactico.setText("Error de sintaxis:"
+                    + "\n\tLinea: " + (sym.right+1)+ " Columna: "+ (sym.left+1) 
+                    + ", Texto: \"" + sym.value + "\"");
+            txtSintactico.setForeground(Color.RED);
+        }
+        
+    }//GEN-LAST:event_btnAnalizarActionPerformed
+
+    private void btnSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSwitchActionPerformed
+
+    private void btnDoWhileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoWhileActionPerformed
+        txtCodigo.append("do{ \n }\n while() ");
+    }//GEN-LAST:event_btnDoWhileActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtCodigo.setText("");
+        txtLexico.setText("");
+        txtSintactico.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,11 +281,18 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.TextArea TexA_IN;
+    private javax.swing.JButton btnAnalizar;
+    private javax.swing.JButton btnDoWhile;
     private javax.swing.JButton btnFor;
     private javax.swing.JButton btnIF;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnSwitch;
     private javax.swing.JButton btnWhile;
-    private javax.swing.JButton jButton1;
-    private java.awt.TextArea textAreaOut;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private java.awt.TextArea txtCodigo;
+    private java.awt.TextArea txtLexico;
+    private java.awt.TextArea txtSintactico;
     // End of variables declaration//GEN-END:variables
 }
