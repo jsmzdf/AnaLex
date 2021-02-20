@@ -1,0 +1,2 @@
+generar un variable para character 
+colocar en el lexer : habilitar las palabras reservadas que se ultizaron recientemente

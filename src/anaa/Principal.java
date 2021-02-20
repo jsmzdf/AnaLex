@@ -42,12 +42,12 @@ public class Principal extends javax.swing.JFrame {
         btnWhile = new javax.swing.JButton();
         btnFor = new javax.swing.JButton();
         txtSintactico = new java.awt.TextArea();
-        btnSwitch = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnDoWhile = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(450, 350));
@@ -90,13 +90,6 @@ public class Principal extends javax.swing.JFrame {
         txtSintactico.setEditable(false);
         txtSintactico.setFont(new java.awt.Font("Noto Sans CJK TC Light", 0, 14)); // NOI18N
 
-        btnSwitch.setText("SWITCH");
-        btnSwitch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSwitchActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Analizador Léxico");
 
         jLabel2.setText("Analizador Sintáctico");
@@ -117,6 +110,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Main()");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,11 +127,11 @@ public class Principal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnWhile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSwitch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnFor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnIF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDoWhile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,14 +172,14 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jLabel3)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnIF)
-                                .addGap(22, 22, 22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnWhile)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnDoWhile)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSwitch)
-                                .addGap(18, 18, 18)
+                                .addGap(40, 40, 40)
                                 .addComponent(btnFor)
+                                .addGap(14, 14, 14)
+                                .addComponent(jButton1)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLimpiar))))
                     .addGroup(layout.createSequentialGroup()
@@ -219,7 +219,7 @@ public class Principal extends javax.swing.JFrame {
         
         try {
             s.parse();
-            txtSintactico.setText("Todo bien perrito, ¡sabe programar!");
+            txtSintactico.setText("!Todo bien ! ");
             txtSintactico.setForeground(new Color(25,111,61));      
         } catch (Exception ex) {
             Symbol sym = s.getS();
@@ -231,10 +231,6 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
-    private void btnSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSwitchActionPerformed
-
     private void btnDoWhileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoWhileActionPerformed
         txtCodigo.append("do{ \n }\n while() ");
     }//GEN-LAST:event_btnDoWhileActionPerformed
@@ -244,6 +240,10 @@ public class Principal extends javax.swing.JFrame {
         txtLexico.setText("");
         txtSintactico.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       txtCodigo.append("int main(){ \n } ");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,8 +286,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnFor;
     private javax.swing.JButton btnIF;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnSwitch;
     private javax.swing.JButton btnWhile;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
